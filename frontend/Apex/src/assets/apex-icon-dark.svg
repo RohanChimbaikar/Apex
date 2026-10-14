@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Apex icon — dark mode</title>
+  <desc id="desc">Minimal geometric peak symbol in white for dark backgrounds.</desc>
+  <g fill="none" stroke="#F8FAFC" stroke-width="17" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 142 L77 43 Q85 28 93 43 L146 142"/>
+    <path d="M57 142 L85 103 L113 142"/>
+  </g>
+</svg>

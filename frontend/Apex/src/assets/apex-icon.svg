@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Apex icon</title>
+  <desc id="desc">Minimal geometric peak symbol with a nested chevron, rounded black strokes.</desc>
+  <g fill="none" stroke="#111111" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 140 L82.9 50.1 Q90 38 97.1 50.1 L150 140"/>
+    <path d="M64 140 L90 96 L116 140"/>
+  </g>
+</svg>
