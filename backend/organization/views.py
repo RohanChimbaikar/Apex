@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from accounts.permissions import CanManageTeams, IsApexAdmin
+from accounts.permissions import  IsApexAdmin
+from .permissions import CanManageTeams
 
 from . import serializers
 from .models import Region, Team

@@ -6,8 +6,3 @@ class IsApexAdmin(BasePermission):
         return request.user.is_authenticated and request.user.role == "ADMIN"
 
 
-class CanManageTeams(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and (
-            request.user.role == "ADMIN" or request.user.role == "REGIONAL_MANAGER"
-        )
