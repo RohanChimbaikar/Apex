@@ -50,6 +50,13 @@ class Task(TimeStampedModel):
         null=True,
         related_name="created_tasks",
     )
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="updated_tasks"
+    )
 
     def __str__(self):
         return self.name

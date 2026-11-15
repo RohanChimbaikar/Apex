@@ -22,6 +22,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "team",
             "assigned_to",
             "created_by",
+            "updated_by",
             "status",
             "priority",
             "scheduled_at",
