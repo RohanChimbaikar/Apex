@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "tasks",
     "visits",
     "activity",
+    "dashboard",
 ]
 
 MIDDLEWARE = [

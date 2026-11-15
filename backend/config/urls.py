@@ -8,4 +8,6 @@ urlpatterns = [
     path("tasks/", include("tasks.urls")),
     path("visits/", include("visits.urls")),
     path("activity/", include("activity.urls")),
+
+    path('dashboard/',include("dashboard.urls"))
 ]
