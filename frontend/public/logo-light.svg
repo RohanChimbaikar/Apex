@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+  <!-- Primary Ascending Peak (Dark Slate for high contrast on light backgrounds) -->
+  <path fill="#0f172a" d="M2 22L12 2L18 14H12L8 22Z" />
+  
+  <!-- Forward Operational Facet (Deep Forest Green) -->
+  <path fill="#047857" d="M13 16H19L22 22H16Z" />
+</svg>

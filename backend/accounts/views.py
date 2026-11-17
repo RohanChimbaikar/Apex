@@ -2,7 +2,8 @@ from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
@@ -10,7 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .permissions import IsApexAdmin
-from .serializers import ApexTokenObtainPairSerializer, RegisterSerializer
+from .serializers import ApexTokenObtainPairSerializer, CurrentUserSerializer, RegisterSerializer
 
 
 @method_decorator(csrf_protect, name="dispatch")
@@ -66,9 +67,7 @@ class ApexTokenRefreshView(TokenRefreshView):
                 secure=not settings.DEBUG,
                 samesite="Lax",
                 path="/api/",
-                max_age=int(
-                    settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds()
-                ),
+                max_age=int(settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds()),
             )
 
         return response
@@ -80,15 +79,12 @@ class LogoutAPIView(APIView):
         refresh_token = request.COOKIES.get("refresh")
 
         if refresh_token is None:
-            return Response(
-                {"detail": "You are not logged in"}, status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"detail": "You are not logged in"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             token = RefreshToken(refresh_token)
             token.blacklist()
         except TokenError:
-
             response = Response(
                 {"error": "Invalid or expired refresh token."},
                 status=status.HTTP_401_UNAUTHORIZED,
@@ -123,3 +119,11 @@ class CSRFCookieView(APIView):
 class RegisterView(CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [IsApexAdmin]
+
+
+class CurrentUserView(RetrieveAPIView):
+    serializer_class = CurrentUserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user

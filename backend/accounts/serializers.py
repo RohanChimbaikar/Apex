@@ -10,7 +10,6 @@ class ApexTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(ModelSerializer):
-
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email", "password", "role"]
@@ -26,3 +25,9 @@ class RegisterSerializer(ModelSerializer):
         user.save()
 
         return user
+
+
+class CurrentUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email", "role"]
