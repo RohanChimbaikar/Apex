@@ -14,13 +14,16 @@ export default function PageContainer({
   children,
 }: PageContainerProps) {
   return (
-    <div className="flex-1 space-y-6 p-6">
-      <div className="flex items-start justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+    <div className="min-w-0 flex-1 space-y-4 p-4">
+      {/* Page header */}
+      <div className="flex items-center justify-between gap-3 rounded-lg border bg-card p-3">
+        <div className="min-w-0 space-y-0.5">
+          <h1 className="truncate text-lg font-semibold tracking-tight">
+            {title}
+          </h1>
 
           {description && (
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-xs text-muted-foreground">{description}</p>
           )}
         </div>
 
@@ -29,6 +32,7 @@ export default function PageContainer({
         )}
       </div>
 
+      {/* Page content */}
       {children}
     </div>
   )

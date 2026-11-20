@@ -17,9 +17,7 @@ class TimeStampedModel(models.Model):
 class Region(TimeStampedModel):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
-    regional_managers = models.ManyToManyField(
-        User, blank=True, related_name="managed_regions"
-    )
+    regional_managers = models.ManyToManyField(User, blank=True, related_name="managed_regions")
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="created_regions"
     )
@@ -43,6 +41,12 @@ class Team(TimeStampedModel):
     )
     updated_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="updated_teams"
+    )
+
+    team_members = models.ManyToManyField(
+        User,
+        related_name="teams",
+        blank=True,
     )
 
     class Meta:

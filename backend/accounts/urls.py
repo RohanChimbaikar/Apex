@@ -7,6 +7,6 @@ urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", views.LogoutAPIView.as_view(), name="logout"),
     path("register/", views.RegisterView.as_view(), name="register"),
-    path("csrf/", views.CSRFCookieView.as_view(), name="csrf"),
+    path("csrf/", views.CSRFCookieView, name="csrf"),
     path("me/", views.CurrentUserView.as_view(), name="me"),
 ]

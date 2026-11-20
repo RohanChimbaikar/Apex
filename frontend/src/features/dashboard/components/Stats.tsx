@@ -5,5 +5,9 @@ interface StatsProps {
 }
 
 export default function Stats({ children }: StatsProps) {
-  return <div className="grid h-24 grid-cols-5 gap-2">{children}</div>
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {children}
+    </div>
+  )
 }

@@ -153,6 +153,7 @@ export type RoleEnum =
   "ADMIN" | "REGIONAL_MANAGER" | "TEAM_LEAD" | "FIELD_AGENT" | "AUDITOR"
 
 export type Task = {
+  id: number
   name: string
   description: string
   team: number
@@ -165,6 +166,10 @@ export type Task = {
   due_date: string
   readonly created_at: string
   readonly updated_at: string
+  readonly team_name: string
+  readonly assigned_to_name: string
+  readonly updated_by_name: string
+  readonly created_by_name: string
 }
 
 /**
@@ -176,11 +181,19 @@ export type Task = {
 export type TaskStatusEnum =
   "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"
 
+export interface TeamMember {
+  id: number
+  full_name: string
+  email: string
+}
+
 export type Team = {
+  id: number
   name: string
   description?: string
   region: number
   team_lead?: number | null
+  members: TeamMember[]
   readonly created_by: number
   readonly updated_by: number
   readonly created_at: string
@@ -465,6 +478,31 @@ export type DashboardRetrieveResponses = {
    * No response body
    */
   200: unknown
+}
+
+export interface TaskStats {
+  total_tasks: number
+  pending_tasks: number
+  in_progress_tasks: number
+  completed_tasks: number
+  cancelled_tasks: number
+  high_priority_tasks: number
+  overdue_tasks: number
+}
+
+export interface VisitStats {
+  total_visits: number
+  pending_visits: number
+  in_progress_visits: number
+  completed_visits: number
+  cancelled_visits: number
+  visits_completed_last_7_days: number
+  visits_completed_last_30_days: number
+}
+
+export interface DashboardStats {
+  tasks: TaskStats
+  visits: VisitStats
 }
 
 export type OrganizationRegionsListData = {

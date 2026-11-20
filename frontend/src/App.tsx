@@ -7,9 +7,13 @@ export default function App() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex-1 bg-workspace">
+
+      <main className="min-w-0 flex-1 bg-workspace">
         <Navbar />
-        <Outlet />
+
+        <div className="w-full min-w-0">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   )

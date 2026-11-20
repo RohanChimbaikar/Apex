@@ -8,6 +8,7 @@ import Dashboard from "./features/dashboard/pages/Dashboard"
 import Visits from "./features/visits/pages/Visits"
 import Teams from "./features/teams/pages/Teams"
 import ProtectedRoutes from "./features/auth/components/ProtectedRoutes"
+import TaskDetailsPage from "./features/tasks/components/TaskDetailsPage"
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: App,
+
         children: [
           {
             index: true,
@@ -31,6 +33,14 @@ export const router = createBrowserRouter([
           },
           {
             path: "tasks",
+            Component: Tasks,
+          },
+          {
+            path: "tasks/:taskId",
+            Component: TaskDetailsPage,
+          },
+          {
+            path: "organization",
             Component: Tasks,
           },
           {

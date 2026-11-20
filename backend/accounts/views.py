@@ -2,8 +2,9 @@ from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
@@ -110,10 +111,11 @@ class LogoutAPIView(APIView):
         return response
 
 
-@method_decorator(ensure_csrf_cookie, name="dispatch")
-class CSRFCookieView(APIView):
-    def get(self, request):
-        return Response({"detail": "CSRF cookie set"})
+@api_view(["GET"])
+@permission_classes([AllowAny])
+@ensure_csrf_cookie
+def CSRFCookieView(request):
+    return Response({"detail": "CSRF cookie set"})
 
 
 class RegisterView(CreateAPIView):

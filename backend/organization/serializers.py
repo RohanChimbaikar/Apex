@@ -8,9 +8,7 @@ User = get_user_model()
 
 
 class RegionSerializer(ModelSerializer):
-    regional_managers = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), many=True
-    )
+    regional_managers = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
@@ -28,6 +26,17 @@ class RegionSerializer(ModelSerializer):
         read_only_fields = ["created_at", "updated_at"]
 
 
+class TeamMemberSerializer(ModelSerializer):
+    full_name = serializers.CharField(
+        source="get_full_name",
+        read_only=True,
+    )
+
+    class Meta:
+        model = User
+        fields = ["id", "full_name", "email"]
+
+
 class TeamSerializer(ModelSerializer):
     region = serializers.PrimaryKeyRelatedField(queryset=Region.objects.all())
     team_lead = serializers.PrimaryKeyRelatedField(
@@ -38,13 +47,17 @@ class TeamSerializer(ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     updated_by = serializers.PrimaryKeyRelatedField(read_only=True)
 
+    members = TeamMemberSerializer(many=True, read_only=True)
+
     class Meta:
         model = Team
         fields = [
+            "id",
             "name",
             "description",
             "region",
             "team_lead",
+            "members",
             "created_by",
             "updated_by",
             "created_at",
@@ -69,7 +82,5 @@ class TeamSerializer(ModelSerializer):
             if value.regional_managers.filter(id=user.id).exists():
                 return value
             else:
-                raise ValidationError(
-                    "You are not authorized to manage teams in this region"
-                )
+                raise ValidationError("You are not authorized to manage teams in this region")
         raise ValidationError("You are not authorized to use this region")

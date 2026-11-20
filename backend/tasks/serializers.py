@@ -6,17 +6,35 @@ from accounts.models import User
 from . import models
 
 
-
-
 class TaskSerializer(serializers.ModelSerializer):
     team = serializers.PrimaryKeyRelatedField(queryset=models.Team.objects.all())
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), allow_null=True, required=False
     )
 
+    team_name = serializers.CharField(
+        source="team.name",
+        read_only=True,
+    )
+
+    created_by_name = serializers.CharField(
+        source="created_by.get_full_name", read_only=True, allow_null=True
+    )
+
+    updated_by_name = serializers.CharField(
+        source="updated_by.get_full_name", read_only=True, allow_null=True
+    )
+
+    assigned_to_name = serializers.CharField(
+        source="assigned_to.get_full_name",
+        read_only=True,
+        allow_null=True,
+    )
+
     class Meta:
         model = models.Task
         fields = [
+            "id",
             "name",
             "description",
             "team",
@@ -29,9 +47,21 @@ class TaskSerializer(serializers.ModelSerializer):
             "due_date",
             "created_at",
             "updated_at",
+            "team_name",
+            "assigned_to_name",
+            "created_by_name",
+            "updated_by_name",
         ]
 
-        read_only_fields = ["created_by", "created_at", "updated_at"]
+        read_only_fields = [
+            "created_by",
+            "created_at",
+            "updated_at",
+            "team_name",
+            "assigned_to_name",
+            "created_by_name",
+            "updated_by_name    ",
+        ]
 
     def validate_assigned_to(self, value):
         if value is None:

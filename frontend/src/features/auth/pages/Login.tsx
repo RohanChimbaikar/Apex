@@ -25,6 +25,7 @@ const userSchema = z.object({
   password: z.string(),
 })
 
+
 type User = z.infer<typeof userSchema>
 
 export function Login() {
